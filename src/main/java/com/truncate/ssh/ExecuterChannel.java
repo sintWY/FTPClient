@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 描述: //TODO 类描述
+ * 描述: 执行通道
  * 版权: Copyright (c) 2016
  * 作者: truncate(wy940407@163.com)
  * 版本: 1.0 
