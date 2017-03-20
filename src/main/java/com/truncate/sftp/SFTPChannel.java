@@ -1,10 +1,14 @@
 package com.truncate.sftp;
 
-import com.jcraft.jsch.*;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
+import com.truncate.AuthConfig;
+import com.truncate.ChannelFactory;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.util.Properties;
 
 /**
  * 描述: sftp通道
@@ -22,48 +26,12 @@ public class SFTPChannel
 
 	private ChannelSftp sftpChannel;
 
-	private Session session;
+	private AuthConfig config;
 
-	private SFTPConfig config;
-
-	public SFTPChannel(SFTPConfig config)
+	public SFTPChannel(AuthConfig config)
 	{
 		this.config = config;
-		connect();
-	}
-
-	/**
-	 *@描述：初始链接
-	 *@作者:王功俊(wanggj@thinkive.com)
-	 *@日期:2016/12/9
-	 *@时间:13:59
-	 */
-	private void connect()
-	{
-		try
-		{
-			JSch jsch = new JSch();
-			session = jsch.getSession(config.getUserName(), config.getIp(), Integer.valueOf(config.getPort()));
-			logger.debug("session is created...：" + session);
-			if(session != null)
-			{
-				session.setPassword(config.getPassword());
-				Properties properties = new Properties();
-				properties.put("StrictHostKeyChecking", "no");
-				session.setConfig(properties); // 为Session对象设置properties
-				session.setTimeout(config.getTimeout()); // 设置timeout时间
-				session.connect(); // 通过Session建立链接
-				logger.debug("session connected...：" + session);
-				Channel channel = session.openChannel("sftp");
-				channel.connect();
-				sftpChannel = (ChannelSftp) channel;
-				logger.info("Connected successfully to ip：" + config.getIp() + ",username：" + config.getUserName() + ",session：" + session + ",channel：" + session);
-			}
-		}
-		catch(JSchException e)
-		{
-			logger.error("", e);
-		}
+		this.sftpChannel = (ChannelSftp) ChannelFactory.getChannel(config, "sftp");
 	}
 
 	/**
@@ -145,11 +113,12 @@ public class SFTPChannel
 		try
 		{
 			File file = new File(src);
+			sftpChannel.connect();
 			sftpChannel.put(src, dst, new SFTPProcess(file.getPath(), dst + "/" + file.getName(), file.length(), System.currentTimeMillis()), mod);
 			//防止输出的格式没有换行符
 			System.out.println("\n");
 		}
-		catch(SftpException e)
+		catch(Exception e)
 		{
 			logger.error("", e);
 		}
@@ -189,16 +158,19 @@ public class SFTPChannel
 	public void closeChannel()
 	{
 
-		if(sftpChannel != null)
+		try
 		{
-			logger.debug("sftp channel is close...：" + sftpChannel);
-			sftpChannel.quit();
-			sftpChannel.disconnect();
+			if(sftpChannel != null)
+			{
+				logger.debug("sftp channel is close...：" + sftpChannel);
+				sftpChannel.quit();
+				sftpChannel.disconnect();
+				sftpChannel.getSession().disconnect();
+			}
 		}
-		if(session != null)
+		catch(JSchException e)
 		{
-			logger.debug("session is close...：" + session);
-			session.disconnect();
+			logger.error("", e);
 		}
 	}
 }

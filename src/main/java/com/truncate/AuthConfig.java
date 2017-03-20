@@ -1,5 +1,6 @@
-package com.truncate.sftp;
+package com.truncate;
 
+import com.truncate.sftp.SFTPConstant;
 import org.apache.log4j.Logger;
 
 /**
@@ -11,10 +12,10 @@ import org.apache.log4j.Logger;
  * 创建日期: 2016年12月08日
  * 创建时间: 16:09
  */
-public class SFTPConfig
+public class AuthConfig
 {
 
-	private static final Logger logger = Logger.getLogger(SFTPConfig.class);
+	private static final Logger logger = Logger.getLogger(AuthConfig.class);
 
 	//ip地址
 	private String ip;
@@ -31,7 +32,7 @@ public class SFTPConfig
 	//超时时间
 	private int timeout;
 
-	public SFTPConfig(String ip, String port, String userName, String password, int timeout)
+	public AuthConfig(String ip, String port, String userName, String password, int timeout)
 	{
 		this.ip = ip;
 		this.port = port;
@@ -40,7 +41,7 @@ public class SFTPConfig
 		this.timeout = timeout;
 	}
 
-	public SFTPConfig(String ip, String port, String userName, String password)
+	public AuthConfig(String ip, String port, String userName, String password)
 	{
 		this(ip, port, userName, password, SFTPConstant.DEFAULT_TIME_OUT);
 	}
