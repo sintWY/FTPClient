@@ -11,8 +11,7 @@ import java.util.Properties;
 /**
  * 描述: Channel工厂类
  * 版权: Copyright (c) 2016
- * 公司: 思迪科技 
- * 作者: 王功俊(wanggj@thinkive.com)
+ * 作者: truncate(wy940407@163.com)
  * 版本: 1.0 
  * 创建日期: 2016年12月09日
  * 创建时间: 16:22
@@ -24,7 +23,7 @@ public class ChannelFactory
 
 	/**
 	 *@描述：获取指定类型的channel
-	 *@作者:王功俊(wanggj@thinkive.com)
+	 *@作者:truncate(wy940407@163.com)
 	 *@日期:2016/12/9
 	 *@时间:16:31
 	 */

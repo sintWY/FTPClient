@@ -13,8 +13,7 @@ import java.io.File;
 /**
  * 描述: sftp通道
  * 版权: Copyright (c) 2016
- * 公司: 思迪科技 
- * 作者: 王功俊(wanggj@thinkive.com)
+ * 作者: truncate(wy940407@163.com)
  * 版本: 1.0 
  * 创建日期: 2016年12月08日
  * 创建时间: 16:21
@@ -36,7 +35,7 @@ public class SFTPChannel
 
 	/**
 	 *@描述：上传文件夹
-	 *@作者:王功俊(wanggj@thinkive.com)
+	 *@作者:truncate(wy940407@163.com)
 	 *@日期:2016/12/9
 	 *@时间:14:01
 	 */
@@ -104,7 +103,7 @@ public class SFTPChannel
 
 	/**
 	 *@描述：上传单个文件
-	 *@作者:王功俊(wanggj@thinkive.com)
+	 *@作者:truncate(wy940407@163.com)
 	 *@日期:2016/12/9
 	 *@时间:13:59
 	 */
@@ -126,7 +125,7 @@ public class SFTPChannel
 
 	/**
 	 *@描述：上传文件
-	 *@作者:王功俊(wanggj@thinkive.com)
+	 *@作者:truncate(wy940407@163.com)
 	 *@日期:2016/12/9
 	 *@时间:14:20
 	 */
